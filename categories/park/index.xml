@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Park on Universal</title>
+    <link>/categories/park/</link>
+    <description>Recent content in Park on Universal</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 22 Nov 2018 13:39:46 +0200</lastBuildDate>
+    
+	<atom:link href="/categories/park/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Semi-Structured Data in Spark (pyspark) - JSON</title>
+      <link>/blog/2018/11/22/semi_structured_data_spark/</link>
+      <pubDate>Thu, 22 Nov 2018 13:39:46 +0200</pubDate>
+      
+      <guid>/blog/2018/11/22/semi_structured_data_spark/</guid>
+      <description>In this post we discuss how to read semi-structured data from different data sources and store it as a spark dataframe. The spark dataframe can in turn be used to perform aggregations and all sorts of data manipulations. 
+Introduction Previously we saw how to create and work with spark dataframes. In post we discuss how to read semi-structured data from different data sources and store it as a spark dataframe and how to do further data manipulations.</description>
+    </item>
+    
+  </channel>
+</rss>

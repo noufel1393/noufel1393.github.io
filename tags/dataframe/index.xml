@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Dataframe on Universal</title>
+    <link>https://noufel1393.github.io/tags/dataframe/</link>
+    <description>Recent content in Dataframe on Universal</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 30 Nov 2018 13:39:46 +0200</lastBuildDate>
+    
+	<atom:link href="https://noufel1393.github.io/tags/dataframe/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Pyspark DataFrame Operations - Basics</title>
+      <link>https://noufel1393.github.io/blog/2018/11/30/pyspark_dataframe_operations/</link>
+      <pubDate>Fri, 30 Nov 2018 13:39:46 +0200</pubDate>
+      
+      <guid>https://noufel1393.github.io/blog/2018/11/30/pyspark_dataframe_operations/</guid>
+      <description>In this post, we will be discussing on how to perform different dataframe operations such as a aggregations, ordering, joins and other similar data manipulations on a spark dataframe. 
+Introduction Spark provides the Dataframe API, which is a very powerful API which enables the user to perform parallel and distrivuted structured data processing on the input data. A Spark dataframe is a dataet with a named set of columns.</description>
+    </item>
+    
+    <item>
+      <title>Semi-Structured Data in Spark (pyspark) - JSON</title>
+      <link>https://noufel1393.github.io/blog/2018/11/22/semi_structured_data_spark/</link>
+      <pubDate>Thu, 22 Nov 2018 13:39:46 +0200</pubDate>
+      
+      <guid>https://noufel1393.github.io/blog/2018/11/22/semi_structured_data_spark/</guid>
+      <description>In this post we discuss how to read semi-structured data from different data sources and store it as a spark dataframe. The spark dataframe can in turn be used to perform aggregations and all sorts of data manipulations. 
+Introduction Previously we saw how to create and work with spark dataframes. In post we discuss how to read semi-structured data from different data sources and store it as a spark dataframe and how to do further data manipulations.</description>
+    </item>
+    
+    <item>
+      <title>Spark Repartition &amp; Coalesce - Explained</title>
+      <link>https://noufel1393.github.io/blog/2018/11/20/spark_repartition_coalesce/</link>
+      <pubDate>Tue, 20 Nov 2018 13:39:46 +0200</pubDate>
+      
+      <guid>https://noufel1393.github.io/blog/2018/11/20/spark_repartition_coalesce/</guid>
+      <description>All data processed by spark is stored in partitions. Today we discuss what are partitions, how partitioning works in Spark (Pyspark), why it matters and how the user can manually control the partitions using repartition and coalesce for effective distributed computing.
+Introduction Spark is a framework which provides parallel and distributed computing on big data. To perform it&amp;rsquo;s parallel processing, spark splits the data into smaller chunks(i.e. partitions) and distributes the same to each node in the cluster to provide a parallel execution of the data.</description>
+    </item>
+    
+  </channel>
+</rss>
