@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Multithreading on Universal</title>
-    <link>https://noufel1393.github.io/tags/multithreading/</link>
-    <description>Recent content in Multithreading on Universal</description>
+    <title>Multithreading on DataNoon</title>
+    <link>/tags/multithreading/</link>
+    <description>Recent content in Multithreading on DataNoon</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 30 Nov 2018 15:39:46 +0200</lastBuildDate>
     
-	<atom:link href="https://noufel1393.github.io/tags/multithreading/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/multithreading/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Multithreading in Python</title>
-      <link>https://noufel1393.github.io/blog/2018/11/30/multithreading_in_python/</link>
+      <link>/blog/2018/11/30/multithreading_in_python/</link>
       <pubDate>Fri, 30 Nov 2018 15:39:46 +0200</pubDate>
       
-      <guid>https://noufel1393.github.io/blog/2018/11/30/multithreading_in_python/</guid>
+      <guid>/blog/2018/11/30/multithreading_in_python/</guid>
       <description>Often we build applications which might require several tasks to run simultaneously within the same application. This is where the concept of multithreading comes into play. This post provides a comprehensive explanation of using the Multithreading(Threading) module in Python. 
 Introduction Multithreading a.k.a Threading in python is a concept by which mutliple threads are launched in the same process to achieve parallelism and multitasking within the same application. Executing different threads are equivalent to executing different programs or different functions within the same process.</description>
     </item>

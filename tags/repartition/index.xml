@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Repartition on Universal</title>
-    <link>https://noufel1393.github.io/tags/repartition/</link>
-    <description>Recent content in Repartition on Universal</description>
+    <title>Repartition on DataNoon</title>
+    <link>/tags/repartition/</link>
+    <description>Recent content in Repartition on DataNoon</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 20 Nov 2018 13:39:46 +0200</lastBuildDate>
     
-	<atom:link href="https://noufel1393.github.io/tags/repartition/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/repartition/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Spark Repartition &amp; Coalesce - Explained</title>
-      <link>https://noufel1393.github.io/blog/2018/11/20/spark_repartition_coalesce/</link>
+      <link>/blog/2018/11/20/spark_repartition_coalesce/</link>
       <pubDate>Tue, 20 Nov 2018 13:39:46 +0200</pubDate>
       
-      <guid>https://noufel1393.github.io/blog/2018/11/20/spark_repartition_coalesce/</guid>
+      <guid>/blog/2018/11/20/spark_repartition_coalesce/</guid>
       <description>All data processed by spark is stored in partitions. Today we discuss what are partitions, how partitioning works in Spark (Pyspark), why it matters and how the user can manually control the partitions using repartition and coalesce for effective distributed computing.
 Introduction Spark is a framework which provides parallel and distributed computing on big data. To perform it&amp;rsquo;s parallel processing, spark splits the data into smaller chunks(i.e. partitions) and distributes the same to each node in the cluster to provide a parallel execution of the data.</description>
     </item>
