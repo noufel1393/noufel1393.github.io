@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="robots" content="all,follow">
+  <meta name="googlebot" content="index,follow,snippet,archive">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Semi-Structured Data in Spark (pyspark) - JSON</title>
+  <meta name="author" content="" />
+
+  
+  <meta name="keywords" content="devows, hugo, go">	
+  
+
+  
+  <meta name="description" content="Site template made by devcows using hugo">	
+  
+
+  <meta name="generator" content="Hugo 0.52" />
+
+  <link href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,500,700,800' rel='stylesheet' type='text/css'>
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  
+  <link href="/css/animate.css" rel="stylesheet">
+
+  
+  
+    <link href="/css/style.default.css" rel="stylesheet" id="theme-stylesheet">
+  
+
+
+  
+  <link href="/css/custom.css" rel="stylesheet">
+
+  
+  
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  
+
+  
+  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+  
+
+  <link href="/css/owl.carousel.css" rel="stylesheet">
+  <link href="/css/owl.theme.css" rel="stylesheet">
+
+  <link rel="alternate" href="https://noufel1393.github.io/index.xml" type="application/rss+xml" title="DataNoon">
+
+  
+  <meta property="og:title" content="Semi-Structured Data in Spark (pyspark) - JSON" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="/blog/semi_structured_data_spark//" />
+  <meta property="og:image" content="img/logo.png" />
+
+</head>
+
+
+  <body>
+
+    <div id="all">
+
+        <header>
+
+          <div class="navbar-affixed-top" data-spy="affix" data-offset-top="200">
+
+    <div class="navbar navbar-default yamm" role="navigation" id="navbar">
+
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand home" href="https://noufel1393.github.io">
+                    <img src="https://noufel1393.github.ioimg/logo.png" alt="Semi-Structured Data in Spark (pyspark) - JSON logo" class="hidden-xs hidden-sm">
+                    <img src="https://noufel1393.github.ioimg/logo-small.png" alt="Semi-Structured Data in Spark (pyspark) - JSON logo" class="visible-xs visible-sm">
+                    <span class="sr-only">Semi-Structured Data in Spark (pyspark) - JSON - go to homepage</span>
+                </a>
+                <div class="navbar-buttons">
+                    <button type="button" class="navbar-toggle btn-template-main" data-toggle="collapse" data-target="#navigation">
+                      <span class="sr-only">Toggle Navigation</span>
+                        <i class="fa fa-align-justify"></i>
+                    </button>
+                </div>
+            </div>
+            
+
+            <div class="navbar-collapse collapse" id="navigation">
+                <ul class="nav navbar-nav navbar-right">
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/">Home</a>
+                    
+                  </li>
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/blog/">Blog</a>
+                    
+                  </li>
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/faq/">FAQ</a>
+                    
+                  </li>
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/contact/">Contact</a>
+                    
+                  </li>
+                  
+                </ul>
+            </div>
+            
+
+            <div class="collapse clearfix" id="search">
+
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                        <span class="input-group-btn">
+
+                    <button type="submit" class="btn btn-template-main"><i class="fa fa-search"></i></button>
+
+                </span>
+                    </div>
+                </form>
+
+            </div>
+            
+
+        </div>
+    </div>
+    
+
+</div>
+
+
+
+
+        </header>
+
+        <div id="heading-breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Semi-Structured Data in Spark (pyspark) - JSON</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        <div id="content">
+            <div class="container">
+
+                <div class="row">
+
+                    
+
+                    <div class="col-md-9" id="blog-post">
+
+                        <p class="text-muted text-uppercase mb-small text-right">November 22, 2018</p>
+
+                        <div id="post-content">
+                          
+
+<p><em>In this post we discuss how to read semi-structured data from different data sources and store it as a spark dataframe. The spark dataframe can in turn be used to perform aggregations and all sorts of data manipulations. </em></p>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>Previously we saw how to <a href="https://noufel1393.github.io/pyspark_dataframe_operations.html">create and work with spark dataframes</a>. In post we discuss how to read semi-structured data from different data sources and store it as a spark dataframe and how to do further data manipulations.</p>
+
+<p>In addition, Spark provides you the power to read semi-structured data and convert the same into a flattened structure which can be stored as a Structured Table or textfile.</p>
+
+<p>By the end of this post we will be covering:</p>
+
+<ul>
+<li><a href="https://noufel1393.github.io/semi_structured_data_spark.html#what-are-the-complex-datatypes-in-spark">What are the Complex Datatypes in Spark</a>
+
+<ul>
+<li>Array</li>
+<li>Struct</li>
+<li>Map</li>
+</ul></li>
+<li><a href="https://noufel1393.github.io/semi_structured_data_spark.html#how-to-read-a-json-file">How to read a JSON file</a></li>
+<li><a href="https://noufel1393.github.io/semi_structured_data_spark.html#how-to-flatten-the-data">How to flatten the data</a>
+
+<ul>
+<li>Spark Dataframe Approach</li>
+<li>Spark SQL Approach</li>
+<li>Flattening Array consisting of Struct Elements</li>
+<li><code>explode_outer</code></li>
+</ul></li>
+<li><a href="https://noufel1393.github.io/semi_structured_data_spark.html#how-to-save-the-flattened-data">How to save the flattened data</a></li>
+<li><a href="https://noufel1393.github.io/semi_structured_data_spark.html#alternate-method-to-strip-first-few-elements-from-json-in-spark">Alternate Method to strip first few elements from JSON in Spark</a></li>
+</ul>
+
+<h2 id="what-are-the-complex-datatypes-in-spark">What are the Complex Datatypes in Spark</h2>
+
+<p>Before we dive into reading a JSON File in spark, let&rsquo;s refresh ourselves with the complex datatypes present in Spark and get a basic understanding of the same. <br>
+There are 3 complex Types in Spark,
+* Array
+* Struct
+* Map</p>
+
+<h3 id="array">Array</h3>
+
+<p>An Array in spark consists of a list of homogenous elements (i.e) elements of the same datatype together.</p>
+
+<pre><code class="language-python">input_json = &quot;&quot;&quot;
+{
+  &quot;numbers&quot;: [1, 2, 3, 4, 5, 6]
+}
+&quot;&quot;&quot;
+adf = spark.read.json(sc.parallelize([input_json]))
+adf.printSchema()
+</code></pre>
+
+<pre><code>root
+ |-- numbers: array (nullable = true)
+ |    |-- element: long (containsNull = true)
+</code></pre>
+
+<p><br>
+Let&rsquo;s have a look at the data</p>
+
+<pre><code class="language-python">adf.show(truncate=False)
+</code></pre>
+
+<pre><code>+------------------+
+|numbers           |
++------------------+
+|[1, 2, 3, 4, 5, 6]|
++------------------+
+</code></pre>
+
+<p><br>
+<strong>Flatten the Array using Explode</strong> <br>
+Now, what if you wish to display the elements in a more structured form with the elements present in individual rows.<br>
+Now here comes the usage of the &ldquo;explode&rdquo; function. The explode, as the name suggests breaks the array into rows containing one element each. Below is a simple usage of the explode function, to explode this array.</p>
+
+<pre><code class="language-python">from pyspark.sql.functions import explode
+adf.select(explode('numbers').alias('number')).show()
+</code></pre>
+
+<pre><code>+------+
+|number|
++------+
+|     1|
+|     2|
+|     3|
+|     4|
+|     5|
+|     6|
++------+
+</code></pre>
+
+<p><br></p>
+
+<h3 id="struct">Struct</h3>
+
+<p>Struct data type is grouped list of variables which can be accessed via a single parent pointer.<br>
+The elements inside a struct type can be accessed via the dot &ldquo;.&rdquo; notation as discussed below,</p>
+
+<pre><code class="language-python">input_json = &quot;&quot;&quot;
+{
+  &quot;car_details&quot;: {
+     &quot;model&quot;: &quot;Tesla S&quot;,
+     &quot;year&quot;: 2018
+  }
+}
+&quot;&quot;&quot;
+sdf = spark.read.json(sc.parallelize([input_json]))
+sdf.printSchema()
+</code></pre>
+
+<pre><code>root
+ |-- car_details: struct (nullable = true)
+ |    |-- model: string (nullable = true)
+ |    |-- year: long (nullable = true)
+</code></pre>
+
+<p><br>
+This is how the data looks.</p>
+
+<pre><code class="language-python">sdf.show()
+</code></pre>
+
+<pre><code>+---------------+
+|    car_details|
++---------------+
+|[Tesla S, 2018]|
++---------------+
+</code></pre>
+
+<p><br>
+Methods to access the elements inside a struct type are shown below,</p>
+
+<pre><code class="language-python">sdf.select(sdf.car_details.model, sdf.car_details.year).show()
+</code></pre>
+
+<pre><code>+-----------------+----------------+
+|car_details.model|car_details.year|
++-----------------+----------------+
+|          Tesla S|            2018|
++-----------------+----------------+
+</code></pre>
+
+<p><br>
+An Alternate Method for the same is present below,</p>
+
+<pre><code class="language-python">from pyspark.sql.functions import col
+sdf.select(col('car_details.model'), col('car_details.year')).show()
+</code></pre>
+
+<pre><code>+-------+----+
+|  model|year|
++-------+----+
+|Tesla S|2018|
++-------+----+
+</code></pre>
+
+<p><br></p>
+
+<h3 id="map">Map</h3>
+
+<p>Map is an element consisting of a key value pair. It is similar to a dictionary in python.</p>
+
+<pre><code class="language-python">from pyspark.sql.types import StructType, MapType, StringType, IntegerType
+input_json = &quot;&quot;&quot;
+{
+  &quot;Car&quot;: {
+    &quot;model_id&quot;: 835,
+    &quot;year&quot;: 2008
+  }
+}
+&quot;&quot;&quot;
+schema = StructType().add(&quot;Car&quot;, MapType(StringType(), IntegerType()))
+mdf = spark.read.json(sc.parallelize([input_json]), schema=schema)
+mdf.printSchema()
+</code></pre>
+
+<pre><code>root
+ |-- Car: map (nullable = true)
+ |    |-- key: string
+ |    |-- value: integer (valueContainsNull = true)
+</code></pre>
+
+<p><br>
+This is how the data looks when displayed,</p>
+
+<pre><code class="language-python">mdf.show(truncate=False)
+</code></pre>
+
+<pre><code>+-------------------------------+
+|Car                            |
++-------------------------------+
+|[model_id -&gt; 835, year -&gt; 2008]|
++-------------------------------+
+</code></pre>
+
+<p><br> Accessing elements individually, can be done using a similar dictionary type access in python, as shown below,</p>
+
+<pre><code class="language-python">mdf.select(mdf.Car['model_id'], mdf.Car['year']).show()
+</code></pre>
+
+<pre><code>+-------------+---------+
+|Car[model_id]|Car[year]|
++-------------+---------+
+|          835|     2008|
++-------------+---------+
+</code></pre>
+
+<p><br></p>
+
+<h2 id="how-to-read-a-json-file">How to read a JSON file</h2>
+
+<p>A JSON File can be read using a simple dataframe json reader method. <br> <br>
+<strong>Note: Spark accepts JSON data in the new-line delimited JSON Lines format. Don&rsquo;t get alarmed if the term JSON Lines is new, it basically means the JSON file must meet the following 3 requirements,</strong>
+* <strong>UTF-8 Encoded Data</strong>
+* <strong>Each Line of the file is a JSON Record</strong>
+* <strong>Line Separator must be &lsquo;\n&rsquo; or &lsquo;\r\n&rsquo;</strong></p>
+
+<p>A Simple Example of a JSON Lines Formatted data is shown below, <br></p>
+
+<p><code>{ 
+   {&quot;id&quot; : &quot;1201&quot;, &quot;name&quot; : &quot;satish&quot;, &quot;age&quot; : &quot;25&quot;}
+   {&quot;id&quot; : &quot;1202&quot;, &quot;name&quot; : &quot;krishna&quot;, &quot;age&quot; : &quot;28&quot;}
+}</code> <br> <br></p>
+
+<p>As seen above, each JSON record spans a new line with a new line separator. <br>
+Let&rsquo;s take a sample JSON File consisting of data about the different Pokemon present in a Pokedex. The Dataset can be downloaded here, <a href="https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/pokedex.json">pokedex_dataset</a> <br></p>
+
+<p>Before we read this file in spark, let&rsquo;s strip out the first header element using python&rsquo;s json method.</p>
+
+<pre><code class="language-python">import json
+with open('/path-to-file/pokedex.json', 'r') as f:
+    vals = json.load(f)
+vals = vals['pokemon']
+#This is how the values look now
+vals[0]
+</code></pre>
+
+<pre><code>{'id': 1,
+ 'num': '001',
+ 'name': 'Bulbasaur',
+ 'img': 'http://www.serebii.net/pokemongo/pokemon/001.png',
+ 'type': ['Grass', 'Poison'],
+ 'height': '0.71 m',
+ 'weight': '6.9 kg',
+ 'candy': 'Bulbasaur Candy',
+ 'candy_count': 25,
+ 'egg': '2 km',
+ 'spawn_chance': 0.69,
+ 'avg_spawns': 69,
+ 'spawn_time': '20:00',
+ 'multipliers': [1.58],
+ 'weaknesses': ['Fire', 'Ice', 'Flying', 'Psychic'],
+ 'next_evolution': [{'num': '002', 'name': 'Ivysaur'},
+  {'num': '003', 'name': 'Venusaur'}]}
+</code></pre>
+
+<p><br>
+Now&rsquo; let&rsquo;s save this in a new file called pokedex_edited.json and proceed with our dataframe operations</p>
+
+<pre><code class="language-python">with open('/path-to-file/pokedex_edited.json', 'w') as f:
+    f.write(json.dumps(vals)) # json.dumps converts the list into a JSON String.
+</code></pre>
+
+<p><br>
+The above element strip method can also be achieved via spark as well. So if the data volume is very large, the operation can be simply done in spark. This alternate method using spark is discussed at the end of this post.<br>
+Now, lets read our data in spark</p>
+
+<pre><code class="language-python">df = spark.read.json('/path-to-file/pokedex_edited.json', multiLine=True)
+</code></pre>
+
+<p><br>
+An alternative for the above reader method is shown below,</p>
+
+<pre><code class="language-python">df = spark.read.format('json').option('multiLine', 'True').load('/path-to-file/pokedex_edited.json')
+</code></pre>
+
+<p>This is how a single JSON record is present in the file, <br> <br></p>
+
+<pre><code class="language-python">{
+    &quot;id&quot;: 1,
+    &quot;num&quot;: &quot;001&quot;,
+    &quot;name&quot;: &quot;Bulbasaur&quot;,
+    &quot;img&quot;: &quot;http://www.serebii.net/pokemongo/pokemon/001.png&quot;,
+    &quot;type&quot;: [
+        &quot;Grass&quot;,
+        &quot;Poison&quot;
+    ],
+    &quot;height&quot;: &quot;0.71 m&quot;,
+    &quot;weight&quot;: &quot;6.9 kg&quot;,
+    &quot;candy&quot;: &quot;Bulbasaur Candy&quot;,
+    &quot;candy_count&quot;: 25,
+    &quot;egg&quot;: &quot;2 km&quot;,
+    &quot;spawn_chance&quot;: 0.69,
+    &quot;avg_spawns&quot;: 69,
+    &quot;spawn_time&quot;: &quot;20:00&quot;,
+    &quot;multipliers&quot;: [1.58],
+    &quot;weaknesses&quot;: [
+        &quot;Fire&quot;,
+        &quot;Ice&quot;,
+        &quot;Flying&quot;,
+        &quot;Psychic&quot;
+    ],
+    &quot;next_evolution&quot;: [{
+        &quot;num&quot;: &quot;002&quot;,
+        &quot;name&quot;: &quot;Ivysaur&quot;
+    }, {
+        &quot;num&quot;: &quot;003&quot;,
+        &quot;name&quot;: &quot;Venusaur&quot;
+    }]
+}
+</code></pre>
+
+<pre><code>{'id': 1,
+ 'num': '001',
+ 'name': 'Bulbasaur',
+ 'img': 'http://www.serebii.net/pokemongo/pokemon/001.png',
+ 'type': ['Grass', 'Poison'],
+ 'height': '0.71 m',
+ 'weight': '6.9 kg',
+ 'candy': 'Bulbasaur Candy',
+ 'candy_count': 25,
+ 'egg': '2 km',
+ 'spawn_chance': 0.69,
+ 'avg_spawns': 69,
+ 'spawn_time': '20:00',
+ 'multipliers': [1.58],
+ 'weaknesses': ['Fire', 'Ice', 'Flying', 'Psychic'],
+ 'next_evolution': [{'num': '002', 'name': 'Ivysaur'},
+  {'num': '003', 'name': 'Venusaur'}]}
+</code></pre>
+
+<p>As you can see from above, there are arrays, structs and even array of structs present in the data.</p>
+
+<p>So spark infers this schema by default and parses the data retaining the complex datastypes, that is, arrays, structs etc.</p>
+
+<p><strong>Note: If you wish to maintain a static schema and would like to pass the same, the <code>schema</code> parameter can be set with an optional pyspark.sql.types.StructType schema.</strong> <br></p>
+
+<p>However, when <strong>spark dynamically infers the schema, the input column order isn&rsquo;t maintained</strong>. If you want to keep the same order as the source, either add a schema to the <code>read.json</code> method or select the columns from the generated df as per your required column order.</p>
+
+<pre><code class="language-python">df.printSchema()
+</code></pre>
+
+<pre><code>root
+ |-- avg_spawns: double (nullable = true)
+ |-- candy: string (nullable = true)
+ |-- candy_count: long (nullable = true)
+ |-- egg: string (nullable = true)
+ |-- height: string (nullable = true)
+ |-- id: long (nullable = true)
+ |-- img: string (nullable = true)
+ |-- multipliers: array (nullable = true)
+ |    |-- element: double (containsNull = true)
+ |-- name: string (nullable = true)
+ |-- next_evolution: array (nullable = true)
+ |    |-- element: struct (containsNull = true)
+ |    |    |-- name: string (nullable = true)
+ |    |    |-- num: string (nullable = true)
+ |-- num: string (nullable = true)
+ |-- prev_evolution: array (nullable = true)
+ |    |-- element: struct (containsNull = true)
+ |    |    |-- name: string (nullable = true)
+ |    |    |-- num: string (nullable = true)
+ |-- spawn_chance: double (nullable = true)
+ |-- spawn_time: string (nullable = true)
+ |-- type: array (nullable = true)
+ |    |-- element: string (containsNull = true)
+ |-- weaknesses: array (nullable = true)
+ |    |-- element: string (containsNull = true)
+ |-- weight: string (nullable = true)
+</code></pre>
+
+<p><br>
+This is how the data looks inside the dataframe.</p>
+
+<pre><code class="language-python">df.show(5,False)
+</code></pre>
+
+<pre><code>+----------+----------------+-----------+-----------+------+---+------------------------------------------------+-----------+----------+-------------------------------------+---+----------------------------------+------------+----------+---------------+----------------------------+--------+
+|avg_spawns|candy           |candy_count|egg        |height|id |img                                             |multipliers|name      |next_evolution                       |num|prev_evolution                    |spawn_chance|spawn_time|type           |weaknesses                  |weight  |
++----------+----------------+-----------+-----------+------+---+------------------------------------------------+-----------+----------+-------------------------------------+---+----------------------------------+------------+----------+---------------+----------------------------+--------+
+|69.0      |Bulbasaur Candy |25         |2 km       |0.71 m|1  |http://www.serebii.net/pokemongo/pokemon/001.png|[1.58]     |Bulbasaur |[[Ivysaur, 002], [Venusaur, 003]]    |001|null                              |0.69        |20:00     |[Grass, Poison]|[Fire, Ice, Flying, Psychic]|6.9 kg  |
+|4.2       |Bulbasaur Candy |100        |Not in Eggs|0.99 m|2  |http://www.serebii.net/pokemongo/pokemon/002.png|[1.2, 1.6] |Ivysaur   |[[Venusaur, 003]]                    |002|[[Bulbasaur, 001]]                |0.042       |07:00     |[Grass, Poison]|[Fire, Ice, Flying, Psychic]|13.0 kg |
+|1.7       |Bulbasaur Candy |null       |Not in Eggs|2.01 m|3  |http://www.serebii.net/pokemongo/pokemon/003.png|null       |Venusaur  |null                                 |003|[[Bulbasaur, 001], [Ivysaur, 002]]|0.017       |11:30     |[Grass, Poison]|[Fire, Ice, Flying, Psychic]|100.0 kg|
+|25.3      |Charmander Candy|25         |2 km       |0.61 m|4  |http://www.serebii.net/pokemongo/pokemon/004.png|[1.65]     |Charmander|[[Charmeleon, 005], [Charizard, 006]]|004|null                              |0.253       |08:45     |[Fire]         |[Water, Ground, Rock]       |8.5 kg  |
+|1.2       |Charmander Candy|100        |Not in Eggs|1.09 m|5  |http://www.serebii.net/pokemongo/pokemon/005.png|[1.79]     |Charmeleon|[[Charizard, 006]]                   |005|[[Charmander, 004]]               |0.012       |19:00     |[Fire]         |[Water, Ground, Rock]       |19.0 kg |
++----------+----------------+-----------+-----------+------+---+------------------------------------------------+-----------+----------+-------------------------------------+---+----------------------------------+------------+----------+---------------+----------------------------+--------+
+only showing top 5 rows
+</code></pre>
+
+<p><br>
+There are 151 records in total in the JSON File, the dataframe count also yields the same result as shown below.</p>
+
+<pre><code class="language-python">df.count()
+</code></pre>
+
+<pre><code>151
+</code></pre>
+
+<p><br>
+Now let&rsquo;s take an array element and flatten the same into a structured form. For this example, we can select the id, name and weaknesses column. <br>
+This is how the data looks before flattening.</p>
+
+<pre><code class="language-python">df.select('id', 'name', 'weaknesses').show(5,False)
+</code></pre>
+
+<pre><code>+---+----------+----------------------------+
+|id |name      |weaknesses                  |
++---+----------+----------------------------+
+|1  |Bulbasaur |[Fire, Ice, Flying, Psychic]|
+|2  |Ivysaur   |[Fire, Ice, Flying, Psychic]|
+|3  |Venusaur  |[Fire, Ice, Flying, Psychic]|
+|4  |Charmander|[Water, Ground, Rock]       |
+|5  |Charmeleon|[Water, Ground, Rock]       |
++---+----------+----------------------------+
+only showing top 5 rows
+</code></pre>
+
+<p><br></p>
+
+<h2 id="how-to-flatten-the-data">How to Flatten the Data</h2>
+
+<h3 id="approach-1-using-spark-dataframe">Approach 1: Using Spark Dataframe</h3>
+
+<p>The <strong>Explode</strong> function can be used to explode the elements into individual rows thereby obtaining the data in a more structured fashion.</p>
+
+<pre><code class="language-python">from pyspark.sql.functions import explode
+df.select('id', 'name', explode('weaknesses').alias('weakness')).show(10)
+</code></pre>
+
+<pre><code>+---+---------+--------+
+| id|     name|weakness|
++---+---------+--------+
+|  1|Bulbasaur|    Fire|
+|  1|Bulbasaur|     Ice|
+|  1|Bulbasaur|  Flying|
+|  1|Bulbasaur| Psychic|
+|  2|  Ivysaur|    Fire|
+|  2|  Ivysaur|     Ice|
+|  2|  Ivysaur|  Flying|
+|  2|  Ivysaur| Psychic|
+|  3| Venusaur|    Fire|
+|  3| Venusaur|     Ice|
++---+---------+--------+
+only showing top 10 rows
+</code></pre>
+
+<p><br></p>
+
+<h3 id="approach-2-using-spark-sql">Approach 2 - Using Spark SQL</h3>
+
+<p>The <strong>Lateral View Explode</strong> function can be used to explode the data using Spark SQL.</p>
+
+<pre><code class="language-python">df.createOrReplaceTempView('pokedex')
+spark.sql(&quot;&quot;&quot;select id,
+name,
+weakness
+from pokedex
+lateral view explode(weaknesses)tmp as weakness&quot;&quot;&quot;).show(10)
+</code></pre>
+
+<pre><code>+---+---------+--------+
+| id|     name|weakness|
++---+---------+--------+
+|  1|Bulbasaur|    Fire|
+|  1|Bulbasaur|     Ice|
+|  1|Bulbasaur|  Flying|
+|  1|Bulbasaur| Psychic|
+|  2|  Ivysaur|    Fire|
+|  2|  Ivysaur|     Ice|
+|  2|  Ivysaur|  Flying|
+|  2|  Ivysaur| Psychic|
+|  3| Venusaur|    Fire|
+|  3| Venusaur|     Ice|
++---+---------+--------+
+only showing top 10 rows
+</code></pre>
+
+<p><br></p>
+
+<h3 id="flattening-array-consisting-of-struct-elements">Flattening Array consisting of Struct Elements</h3>
+
+<p>Let&rsquo;s pick id,name, next_evolution and prev_evolution columns from the dataset. This is how the data looks before flattening,</p>
+
+<pre><code class="language-python">df.select('id', 'name', 'next_evolution', 'prev_evolution').show(5,False)
+</code></pre>
+
+<pre><code>+---+----------+-------------------------------------+----------------------------------+
+|id |name      |next_evolution                       |prev_evolution                    |
++---+----------+-------------------------------------+----------------------------------+
+|1  |Bulbasaur |[[Ivysaur, 002], [Venusaur, 003]]    |null                              |
+|2  |Ivysaur   |[[Venusaur, 003]]                    |[[Bulbasaur, 001]]                |
+|3  |Venusaur  |null                                 |[[Bulbasaur, 001], [Ivysaur, 002]]|
+|4  |Charmander|[[Charmeleon, 005], [Charizard, 006]]|null                              |
+|5  |Charmeleon|[[Charizard, 006]]                   |[[Charmander, 004]]               |
++---+----------+-------------------------------------+----------------------------------+
+only showing top 5 rows
+</code></pre>
+
+<p>Now, let&rsquo;s flatten the above data. Our data consists of array elements which in turn have a struct in them. So we can use the explode function to initially explode the array and then use the dot &ldquo;.&rdquo; notation to pick the struct elements from the array.</p>
+
+<pre><code class="language-python">df.select('id', 'name', 'next_evolution', 'prev_evolution').printSchema()
+</code></pre>
+
+<pre><code>root
+ |-- id: long (nullable = true)
+ |-- name: string (nullable = true)
+ |-- next_evolution: array (nullable = true)
+ |    |-- element: struct (containsNull = true)
+ |    |    |-- name: string (nullable = true)
+ |    |    |-- num: string (nullable = true)
+ |-- prev_evolution: array (nullable = true)
+ |    |-- element: struct (containsNull = true)
+ |    |    |-- name: string (nullable = true)
+ |    |    |-- num: string (nullable = true)
+</code></pre>
+
+<p>The Spark Dataframes Method allows only single explode call in a select method, so multiple select methods must be called for calling multiple explode methods.</p>
+
+<pre><code class="language-python">exp_df = df.select('id','name',explode('next_evolution').alias('next_evolution'), 'prev_evolution')\
+.select('id','name', 'next_evolution', explode('prev_evolution').alias('prev_evolution'))
+exp_df.show()
+</code></pre>
+
+<pre><code>+---+----------+-----------------+--------------------+
+| id|      name|   next_evolution|      prev_evolution|
++---+----------+-----------------+--------------------+
+|  2|   Ivysaur|  [Venusaur, 003]|    [Bulbasaur, 001]|
+|  5|Charmeleon| [Charizard, 006]|   [Charmander, 004]|
+|  8| Wartortle| [Blastoise, 009]|     [Squirtle, 007]|
+| 11|   Metapod|[Butterfree, 012]|     [Caterpie, 010]|
+| 14|    Kakuna|  [Beedrill, 015]|       [Weedle, 013]|
+| 17| Pidgeotto|   [Pidgeot, 018]|       [Pidgey, 016]|
+| 30|  Nidorina| [Nidoqueen, 031]|[Nidoran(Female),...|
+| 33|  Nidorino|  [Nidoking, 034]|[Nidoran(Male), 032]|
+| 44|     Gloom| [Vileplume, 045]|       [Oddish, 043]|
+| 61| Poliwhirl| [Poliwrath, 062]|      [Poliwag, 060]|
+| 64|   Kadabra|  [Alakazam, 065]|         [Abra, 063]|
+| 67|   Machoke|   [Machamp, 068]|       [Machop, 066]|
+| 70|Weepinbell|[Victreebel, 071]|   [Bellsprout, 069]|
+| 75|  Graveler|     [Golem, 076]|      [Geodude, 074]|
+| 93|   Haunter|    [Gengar, 094]|       [Gastly, 092]|
+|148| Dragonair| [Dragonite, 149]|      [Dratini, 147]|
++---+----------+-----------------+--------------------+
+</code></pre>
+
+<p><br> Final Exploded Data looks like this,</p>
+
+<pre><code class="language-python">exp_df.select('id','name', col('next_evolution.name').alias('next_name'), col('next_evolution.num')\
+              .alias('next_num'), col('prev_evolution.name').alias('prev_name')\
+              , col('prev_evolution.num').alias('prev_num')).show(10)
+</code></pre>
+
+<pre><code>+---+----------+----------+--------+---------------+--------+
+| id|      name| next_name|next_num|      prev_name|prev_num|
++---+----------+----------+--------+---------------+--------+
+|  2|   Ivysaur|  Venusaur|     003|      Bulbasaur|     001|
+|  5|Charmeleon| Charizard|     006|     Charmander|     004|
+|  8| Wartortle| Blastoise|     009|       Squirtle|     007|
+| 11|   Metapod|Butterfree|     012|       Caterpie|     010|
+| 14|    Kakuna|  Beedrill|     015|         Weedle|     013|
+| 17| Pidgeotto|   Pidgeot|     018|         Pidgey|     016|
+| 30|  Nidorina| Nidoqueen|     031|Nidoran(Female)|     029|
+| 33|  Nidorino|  Nidoking|     034|  Nidoran(Male)|     032|
+| 44|     Gloom| Vileplume|     045|         Oddish|     043|
+| 61| Poliwhirl| Poliwrath|     062|        Poliwag|     060|
++---+----------+----------+--------+---------------+--------+
+only showing top 10 rows
+</code></pre>
+
+<p><br></p>
+
+<h3 id="explode-outer">explode_outer</h3>
+
+<p>*Note: explode ignores elements which are null. Hence you might&rsquo;ve noticed some elements missing from the above flattened data. This can be mitigated by using <strong>explode_outer</strong> to include even the nulls if you wish to. Below example illustrates the usage of explode_outer*</p>
+
+<pre><code class="language-python">from pyspark.sql.functions import explode_outer, col
+exp_out_df = df.select('id','name',explode_outer('next_evolution').alias('next_evolution'), 'prev_evolution')\
+.select('id','name', 'next_evolution', explode_outer('prev_evolution').alias('prev_evolution'))
+exp_out_df.show()
+</code></pre>
+
+<pre><code>+---+----------+-----------------+-----------------+
+| id|      name|   next_evolution|   prev_evolution|
++---+----------+-----------------+-----------------+
+|  1| Bulbasaur|   [Ivysaur, 002]|             null|
+|  1| Bulbasaur|  [Venusaur, 003]|             null|
+|  2|   Ivysaur|  [Venusaur, 003]| [Bulbasaur, 001]|
+|  3|  Venusaur|             null| [Bulbasaur, 001]|
+|  3|  Venusaur|             null|   [Ivysaur, 002]|
+|  4|Charmander|[Charmeleon, 005]|             null|
+|  4|Charmander| [Charizard, 006]|             null|
+|  5|Charmeleon| [Charizard, 006]|[Charmander, 004]|
+|  6| Charizard|             null|[Charmander, 004]|
+|  6| Charizard|             null|[Charmeleon, 005]|
+|  7|  Squirtle| [Wartortle, 008]|             null|
+|  7|  Squirtle| [Blastoise, 009]|             null|
+|  8| Wartortle| [Blastoise, 009]|  [Squirtle, 007]|
+|  9| Blastoise|             null|  [Squirtle, 007]|
+|  9| Blastoise|             null| [Wartortle, 008]|
+| 10|  Caterpie|   [Metapod, 011]|             null|
+| 10|  Caterpie|[Butterfree, 012]|             null|
+| 11|   Metapod|[Butterfree, 012]|  [Caterpie, 010]|
+| 12|Butterfree|             null|  [Caterpie, 010]|
+| 12|Butterfree|             null|   [Metapod, 011]|
++---+----------+-----------------+-----------------+
+only showing top 20 rows
+</code></pre>
+
+<p><br></p>
+
+<h3 id="flattening-array-of-struct-spark-sql-simpler-way">Flattening Array of Struct - Spark SQL - Simpler way</h3>
+
+<p>The Spark SQL Approach to flatten multiple array of struct elements is a much simpler and cleaner way to explode and select the struct elements.<br>
+Here, we will use the <strong>lateral view outer explode</strong> function to pick all the elements including the nulls.</p>
+
+<pre><code class="language-python">df.createOrReplaceTempView('pokedex')
+flat_df = spark.sql(&quot;&quot;&quot;select id,
+name,
+a.name as next_name,
+a.num as next_num,
+b.name as prev_name,
+b.num as prev_num
+from pokedex
+lateral view outer explode(next_evolution)tmp1 as a
+lateral view outer explode(prev_evolution)tmp2 as b
+&quot;&quot;&quot;)
+flat_df.show()
+</code></pre>
+
+<pre><code>+---+----------+----------+--------+----------+--------+
+| id|      name| next_name|next_num| prev_name|prev_num|
++---+----------+----------+--------+----------+--------+
+|  1| Bulbasaur|   Ivysaur|     002|      null|    null|
+|  1| Bulbasaur|  Venusaur|     003|      null|    null|
+|  2|   Ivysaur|  Venusaur|     003| Bulbasaur|     001|
+|  3|  Venusaur|      null|    null| Bulbasaur|     001|
+|  3|  Venusaur|      null|    null|   Ivysaur|     002|
+|  4|Charmander|Charmeleon|     005|      null|    null|
+|  4|Charmander| Charizard|     006|      null|    null|
+|  5|Charmeleon| Charizard|     006|Charmander|     004|
+|  6| Charizard|      null|    null|Charmander|     004|
+|  6| Charizard|      null|    null|Charmeleon|     005|
+|  7|  Squirtle| Wartortle|     008|      null|    null|
+|  7|  Squirtle| Blastoise|     009|      null|    null|
+|  8| Wartortle| Blastoise|     009|  Squirtle|     007|
+|  9| Blastoise|      null|    null|  Squirtle|     007|
+|  9| Blastoise|      null|    null| Wartortle|     008|
+| 10|  Caterpie|   Metapod|     011|      null|    null|
+| 10|  Caterpie|Butterfree|     012|      null|    null|
+| 11|   Metapod|Butterfree|     012|  Caterpie|     010|
+| 12|Butterfree|      null|    null|  Caterpie|     010|
+| 12|Butterfree|      null|    null|   Metapod|     011|
++---+----------+----------+--------+----------+--------+
+only showing top 20 rows
+</code></pre>
+
+<p><br></p>
+
+<h2 id="how-to-save-the-flattened-data">How to Save the Flattened Data</h2>
+
+<p>You can save the above flattened data into any type of structured source such as a table or delimited text files or even parquet files. Below example illustrates how the above dataframe can be written to a single pipe delimited text file.</p>
+
+<pre><code class="language-python">flat_df.repartition(1).write.format('csv').option('delimiter', '|').save('/path-to-file/pokedex_flat.csv')
+</code></pre>
+
+<p><br>
+<em>The above flattened data can be saved into a Hive Table, as well, using the below method,</em></p>
+
+<pre><code class="language-python">df.write.saveAsTable('pokedex')
+</code></pre>
+
+<h2 id="alternate-method-to-strip-first-few-elements-from-json-in-spark">Alternate method to strip first few elements from JSON in Spark</h2>
+
+<p>As discussed in the start of this post, we can remove the initial root element from the JSON, using the below steps.<br>
+Let&rsquo;s read our JSON File first.</p>
+
+<pre><code class="language-python">df2 = spark.read.json('/path-to-file/pokedex.json', multiLine=True)
+df2.printSchema()
+</code></pre>
+
+<pre><code>root
+ |-- pokemon: array (nullable = true)
+ |    |-- element: struct (containsNull = true)
+ |    |    |-- avg_spawns: double (nullable = true)
+ |    |    |-- candy: string (nullable = true)
+ |    |    |-- candy_count: long (nullable = true)
+ |    |    |-- egg: string (nullable = true)
+ |    |    |-- height: string (nullable = true)
+ |    |    |-- id: long (nullable = true)
+ |    |    |-- img: string (nullable = true)
+ |    |    |-- multipliers: array (nullable = true)
+ |    |    |    |-- element: double (containsNull = true)
+ |    |    |-- name: string (nullable = true)
+ |    |    |-- next_evolution: array (nullable = true)
+ |    |    |    |-- element: struct (containsNull = true)
+ |    |    |    |    |-- name: string (nullable = true)
+ |    |    |    |    |-- num: string (nullable = true)
+ |    |    |-- num: string (nullable = true)
+ |    |    |-- prev_evolution: array (nullable = true)
+ |    |    |    |-- element: struct (containsNull = true)
+ |    |    |    |    |-- name: string (nullable = true)
+ |    |    |    |    |-- num: string (nullable = true)
+ |    |    |-- spawn_chance: double (nullable = true)
+ |    |    |-- spawn_time: string (nullable = true)
+ |    |    |-- type: array (nullable = true)
+ |    |    |    |-- element: string (containsNull = true)
+ |    |    |-- weaknesses: array (nullable = true)
+ |    |    |    |-- element: string (containsNull = true)
+ |    |    |-- weight: string (nullable = true)
+</code></pre>
+
+<p><br>
+As you can see above, the root element <em>&lsquo;pokemon&rsquo;</em> can be removed so that our data flattening becomes easier.<br>
+Since this element is an array, a simple explode function can be called on it to break the array into different individual rows (i.e) 151 rows would be generated. Also the pokemon element would have a struct datatype now since the data has been exploded.</p>
+
+<pre><code class="language-python">df3 = df2.select(explode('pokemon').alias('pokemon'))
+df3.printSchema()
+</code></pre>
+
+<pre><code>root
+ |-- pokemon: struct (nullable = true)
+ |    |-- avg_spawns: double (nullable = true)
+ |    |-- candy: string (nullable = true)
+ |    |-- candy_count: long (nullable = true)
+ |    |-- egg: string (nullable = true)
+ |    |-- height: string (nullable = true)
+ |    |-- id: long (nullable = true)
+ |    |-- img: string (nullable = true)
+ |    |-- multipliers: array (nullable = true)
+ |    |    |-- element: double (containsNull = true)
+ |    |-- name: string (nullable = true)
+ |    |-- next_evolution: array (nullable = true)
+ |    |    |-- element: struct (containsNull = true)
+ |    |    |    |-- name: string (nullable = true)
+ |    |    |    |-- num: string (nullable = true)
+ |    |-- num: string (nullable = true)
+ |    |-- prev_evolution: array (nullable = true)
+ |    |    |-- element: struct (containsNull = true)
+ |    |    |    |-- name: string (nullable = true)
+ |    |    |    |-- num: string (nullable = true)
+ |    |-- spawn_chance: double (nullable = true)
+ |    |-- spawn_time: string (nullable = true)
+ |    |-- type: array (nullable = true)
+ |    |    |-- element: string (containsNull = true)
+ |    |-- weaknesses: array (nullable = true)
+ |    |    |-- element: string (containsNull = true)
+ |    |-- weight: string (nullable = true)
+</code></pre>
+
+<pre><code class="language-python">df3.count()
+</code></pre>
+
+<pre><code>151
+</code></pre>
+
+<p><br>
+Now let&rsquo;s strip this element off and get our desired schema. We can use the dot &ldquo;.&rdquo; notation to get the elements of the struct. Since we are going to pick all elements here, we can use a simple * to do that.</p>
+
+<pre><code class="language-python">df3.select('pokemon.*').printSchema()
+</code></pre>
+
+<pre><code>root
+ |-- avg_spawns: double (nullable = true)
+ |-- candy: string (nullable = true)
+ |-- candy_count: long (nullable = true)
+ |-- egg: string (nullable = true)
+ |-- height: string (nullable = true)
+ |-- id: long (nullable = true)
+ |-- img: string (nullable = true)
+ |-- multipliers: array (nullable = true)
+ |    |-- element: double (containsNull = true)
+ |-- name: string (nullable = true)
+ |-- next_evolution: array (nullable = true)
+ |    |-- element: struct (containsNull = true)
+ |    |    |-- name: string (nullable = true)
+ |    |    |-- num: string (nullable = true)
+ |-- num: string (nullable = true)
+ |-- prev_evolution: array (nullable = true)
+ |    |-- element: struct (containsNull = true)
+ |    |    |-- name: string (nullable = true)
+ |    |    |-- num: string (nullable = true)
+ |-- spawn_chance: double (nullable = true)
+ |-- spawn_time: string (nullable = true)
+ |-- type: array (nullable = true)
+ |    |-- element: string (containsNull = true)
+ |-- weaknesses: array (nullable = true)
+ |    |-- element: string (containsNull = true)
+ |-- weight: string (nullable = true)
+</code></pre>
+
+<p>By now you should be familiar with the complex datatypes in spark and how to perform operations on the same.</p>
+
+<p>In addition to this, hope this post gave a lucid understanding of json parsing and flattening in spark using both the Dataframe and Spark SQL. Please write down your comments or any feedback on the comment section present below. Cheers!</p>
+
+                        </div>
+                        
+                        
+                        <div id="comments">
+                            <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "devcows" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+                        </div>
+                        
+
+                    </div>
+                    
+
+                    
+
+                    
+
+                    <div class="col-md-3">
+
+                        
+
+                        
+
+<div class="panel panel-default sidebar-menu">
+
+    <div class="panel-heading">
+      <h3 class="panel-title">Search</h3>
+    </div>
+
+    <div class="panel-body">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" role="search">
+            <div class="input-group">
+                <input type="search" name="q" class="form-control" placeholder="Search">
+                <input type="hidden" name="sitesearch" value="https://noufel1393.github.io">
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-template-main"><i class="fa fa-search"></i></button>
+                </span>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+
+    <div class="panel-heading">
+      <h3 class="panel-title">Categories</h3>
+    </div>
+
+    <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked">
+            
+            <li><a href="https://noufel1393.github.iocategories/programming">programming (2)</a>
+            </li>
+            
+            <li><a href="https://noufel1393.github.iocategories/pseudo">pseudo (1)</a>
+            </li>
+            
+            <li><a href="https://noufel1393.github.iocategories/python">python (1)</a>
+            </li>
+            
+            <li><a href="https://noufel1393.github.iocategories/r">r (1)</a>
+            </li>
+            
+            <li><a href="https://noufel1393.github.iocategories/spark">spark (3)</a>
+            </li>
+            
+            <li><a href="https://noufel1393.github.iocategories/starting">starting (1)</a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="panel sidebar-menu">
+    <div class="panel-heading">
+      <h3 class="panel-title">Tags</h3>
+    </div>
+
+    <div class="panel-body">
+        <ul class="tag-cloud">
+            
+            <li><a href="https://noufel1393.github.iotags/coalesce"><i class="fa fa-tags"></i> coalesce</a>
+            </li>
+            
+            <li><a href="https://noufel1393.github.iotags/dataframe"><i class="fa fa-tags"></i> dataframe</a>
+            </li>
+            
+            <li><a href="https://noufel1393.github.iotags/go"><i class="fa fa-tags"></i> go</a>
+            </li>
+            
+            <li><a href="https://noufel1393.github.iotags/golang"><i class="fa fa-tags"></i> golang</a>
+            </li>
+            
+            <li><a href="https://noufel1393.github.iotags/hugo"><i class="fa fa-tags"></i> hugo</a>
+            </li>
+            
+            <li><a href="https://noufel1393.github.iotags/multithreading"><i class="fa fa-tags"></i> multithreading</a>
+            </li>
+            
+            <li><a href="https://noufel1393.github.iotags/plot"><i class="fa fa-tags"></i> plot</a>
+            </li>
+            
+            <li><a href="https://noufel1393.github.iotags/programming"><i class="fa fa-tags"></i> programming</a>
+            </li>
+            
+            <li><a href="https://noufel1393.github.iotags/pyspark"><i class="fa fa-tags"></i> pyspark</a>
+            </li>
+            
+            <li><a href="https://noufel1393.github.iotags/python"><i class="fa fa-tags"></i> python</a>
+            </li>
+            
+            <li><a href="https://noufel1393.github.iotags/r-markdown"><i class="fa fa-tags"></i> r-markdown</a>
+            </li>
+            
+            <li><a href="https://noufel1393.github.iotags/rdd"><i class="fa fa-tags"></i> rdd</a>
+            </li>
+            
+            <li><a href="https://noufel1393.github.iotags/regression"><i class="fa fa-tags"></i> regression</a>
+            </li>
+            
+            <li><a href="https://noufel1393.github.iotags/repartition"><i class="fa fa-tags"></i> repartition</a>
+            </li>
+            
+            <li><a href="https://noufel1393.github.iotags/spark"><i class="fa fa-tags"></i> spark</a>
+            </li>
+            
+            <li><a href="https://noufel1393.github.iotags/theme"><i class="fa fa-tags"></i> theme</a>
+            </li>
+            
+            <li><a href="https://noufel1393.github.iotags/threading"><i class="fa fa-tags"></i> threading</a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+
+
+                        
+
+                    </div>
+                    
+
+                    
+
+                </div>
+                
+
+            </div>
+            
+        </div>
+        
+
+        <footer id="footer">
+    <div class="container">
+
+        
+        <div class="col-md-4 col-sm-6">
+            <h4>About us</h4>
+
+            Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+        <div class="col-md-4 col-sm-6">
+
+             
+            <h4>Recent posts</h4>
+
+            <div class="blog-entries">
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="https://noufel1393.github.io/blog/multithreading_in_python/">
+                          
+                            <img src="https://noufel1393.github.ioimg/banners/banner-3.jpg" class="img-responsive" alt="Multithreading in Python">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="https://noufel1393.github.io/blog/multithreading_in_python/">Multithreading in Python</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="https://noufel1393.github.io/blog/pyspark_dataframe_operations/">
+                          
+                            <img src="https://noufel1393.github.ioimg/banners/banner-3.jpg" class="img-responsive" alt="Pyspark DataFrame Operations - Basics">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="https://noufel1393.github.io/blog/pyspark_dataframe_operations/">Pyspark DataFrame Operations - Basics</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="https://noufel1393.github.io/blog/semi_structured_data_spark/">
+                          
+                            <img src="https://noufel1393.github.ioimg/banners/banner-3.jpg" class="img-responsive" alt="Semi-Structured Data in Spark (pyspark) - JSON">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="https://noufel1393.github.io/blog/semi_structured_data_spark/">Semi-Structured Data in Spark (pyspark) - JSON</a></h5>
+                    </div>
+                </div>
+                
+            </div>
+
+            <hr class="hidden-md hidden-lg">
+             
+
+        </div>
+        
+
+        
+        <div class="col-md-4 col-sm-6">
+
+          <h4>Contact</h4>
+
+            <strong>Universal Ltd.</strong>
+        <br>13/25 New Avenue
+        <br>Newtown upon River
+        <br>45Y 73J
+        <br>England
+        <br>
+        <strong>Great Britain</strong>
+      </p>
+      
+
+
+            <a href="/contact" class="btn btn-small btn-template-main">Go to contact page</a>
+
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+    </div>
+    
+</footer>
+
+
+
+
+
+
+
+<div id="copyright">
+    <div class="container">
+        <div class="col-md-12">
+            
+            <p class="pull-left">Copyright (c) 2015 - 2016, DataNoon; all rights reserved.</p>
+            
+            <p class="pull-right">
+              Template by <a href="http://bootstrapious.com/free-templates">Bootstrapious</a>.
+              
+
+              Ported to Hugo by <a href="https://github.com/devcows/hugo-universal-theme">DevCows</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+    </div>
+    
+
+    
+<script src="//code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0/jquery.counterup.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-parallax/1.1.3/jquery-parallax.js"></script>
+
+<script src="//maps.googleapis.com/maps/api/js?v=3.exp"></script>
+
+<script src="https://noufel1393.github.iojs/hpneo.gmaps.js"></script>
+<script src="https://noufel1393.github.iojs/gmaps.init.js"></script>
+<script src="https://noufel1393.github.iojs/front.js"></script>
+
+
+<script src="https://noufel1393.github.iojs/owl.carousel.min.js"></script>
+
+
+  </body>
+</html>

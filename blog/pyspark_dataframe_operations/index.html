@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="robots" content="all,follow">
+  <meta name="googlebot" content="index,follow,snippet,archive">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pyspark DataFrame Operations - Basics</title>
+  <meta name="author" content="" />
+
+  
+  <meta name="keywords" content="devows, hugo, go">	
+  
+
+  
+  <meta name="description" content="Site template made by devcows using hugo">	
+  
+
+  <meta name="generator" content="Hugo 0.52" />
+
+  <link href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,500,700,800' rel='stylesheet' type='text/css'>
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  
+  <link href="/css/animate.css" rel="stylesheet">
+
+  
+  
+    <link href="/css/style.default.css" rel="stylesheet" id="theme-stylesheet">
+  
+
+
+  
+  <link href="/css/custom.css" rel="stylesheet">
+
+  
+  
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  
+
+  
+  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+  
+
+  <link href="/css/owl.carousel.css" rel="stylesheet">
+  <link href="/css/owl.theme.css" rel="stylesheet">
+
+  <link rel="alternate" href="https://noufel1393.github.io/index.xml" type="application/rss+xml" title="DataNoon">
+
+  
+  <meta property="og:title" content="Pyspark DataFrame Operations - Basics" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="/blog/pyspark_dataframe_operations//" />
+  <meta property="og:image" content="img/logo.png" />
+
+</head>
+
+
+  <body>
+
+    <div id="all">
+
+        <header>
+
+          <div class="navbar-affixed-top" data-spy="affix" data-offset-top="200">
+
+    <div class="navbar navbar-default yamm" role="navigation" id="navbar">
+
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand home" href="https://noufel1393.github.io">
+                    <img src="https://noufel1393.github.ioimg/logo.png" alt="Pyspark DataFrame Operations - Basics logo" class="hidden-xs hidden-sm">
+                    <img src="https://noufel1393.github.ioimg/logo-small.png" alt="Pyspark DataFrame Operations - Basics logo" class="visible-xs visible-sm">
+                    <span class="sr-only">Pyspark DataFrame Operations - Basics - go to homepage</span>
+                </a>
+                <div class="navbar-buttons">
+                    <button type="button" class="navbar-toggle btn-template-main" data-toggle="collapse" data-target="#navigation">
+                      <span class="sr-only">Toggle Navigation</span>
+                        <i class="fa fa-align-justify"></i>
+                    </button>
+                </div>
+            </div>
+            
+
+            <div class="navbar-collapse collapse" id="navigation">
+                <ul class="nav navbar-nav navbar-right">
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/">Home</a>
+                    
+                  </li>
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/blog/">Blog</a>
+                    
+                  </li>
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/faq/">FAQ</a>
+                    
+                  </li>
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/contact/">Contact</a>
+                    
+                  </li>
+                  
+                </ul>
+            </div>
+            
+
+            <div class="collapse clearfix" id="search">
+
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                        <span class="input-group-btn">
+
+                    <button type="submit" class="btn btn-template-main"><i class="fa fa-search"></i></button>
+
+                </span>
+                    </div>
+                </form>
+
+            </div>
+            
+
+        </div>
+    </div>
+    
+
+</div>
+
+
+
+
+        </header>
+
+        <div id="heading-breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Pyspark DataFrame Operations - Basics</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        <div id="content">
+            <div class="container">
+
+                <div class="row">
+
+                    
+
+                    <div class="col-md-9" id="blog-post">
+
+                        <p class="text-muted text-uppercase mb-small text-right">November 30, 2018</p>
+
+                        <div id="post-content">
+                          
+
+<p><em> In this post, we will be discussing on how to perform different dataframe operations such as a aggregations, ordering, joins and other similar data manipulations on a spark dataframe. </em></p>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>Spark provides the Dataframe API, which is a very powerful API which enables the user to perform parallel and distrivuted structured data processing on the input data. A Spark dataframe is a dataet with a named set of columns.</p>
+
+<p>By the end of this post, you should be familiar on performing the most frequently data manipulations on a spark dataframe.</p>
+
+<h2 id="table-of-contents">Table of Contents</h2>
+
+<ul>
+<li>What is a Spark Dataframe?</li>
+<li>Dataframe Features</li>
+<li>DataFrame Operations
+
+<ul>
+<li>Create a DataFrame</li>
+<li>DataFrame Schema</li>
+<li>Count of a DataFrame</li>
+<li>Display DataFrame Data</li>
+<li>Remove Duplicate rows from a DataFrame</li>
+<li>Distinct Column Values</li>
+<li>Filtering Data</li>
+<li>Sorting/Ordering Data</li>
+<li>Grouping &amp; Performing Aggregations</li>
+<li>Join DataFrames</li>
+<li>Limit data from a dataframe</li>
+<li>Union 2 Dataframes</li>
+<li>How to change Dataframe columns</li>
+<li>DataType Casting</li>
+<li>Cache a DataFrame</li>
+<li>Unpersist Dataframe</li>
+<li>Replace Nulls</li>
+<li>Partition Data</li>
+<li>DataFrame Write</li>
+<li>Create Temp View</li>
+<li>Spark SQL</li>
+</ul></li>
+</ul>
+
+<h2 id="what-is-a-spark-dataframe">What is a Spark Dataframe?</h2>
+
+<p>A Dataframe is a distributed collection of data along with named set of columns. It is similar to a table in a relational database and has a similar look and feel. The dataframe can be derived from a dataset which can be delimited text files, Parquet &amp; ORC Files, CSVs, RDBMS Table, Hive Table, RDDs etc. In addition to this, a dataframe can also be constructed from semi-structured formats such as JSON and XML. The dataframe API is a very powerful one bundled with extensive features and rich optimizations.</p>
+
+<h2 id="dataframe-features">Dataframe Features</h2>
+
+<ul>
+<li>Unified Data Access</li>
+<li>Ability to handle structured and semi-structured data</li>
+<li>Supports a wide variety of Data Sources</li>
+<li>Profuse Features for Data Manipulations and Aggregations</li>
+<li>Supports multiple languages such as Python, Java, R &amp; Scala</li>
+</ul>
+
+<h2 id="dataframe-operations">DataFrame Operations</h2>
+
+<p>Some of the basic and frequently used dataframe operations would be discussed below.</p>
+
+<p>Before we start, let&rsquo;s create our <code>SparkSession</code> and <code>sparkContext</code>. (Note: These parameters are automatically created if you&rsquo;re accessing spark via spark shell)</p>
+
+<pre><code class="language-python">from pyspark.sql import SparkSession
+spark = SparkSession.builder.appName('Spark Training').getOrCreate()
+sc = spark.sparkContext
+</code></pre>
+
+<h3 id="create-dataframe">Create DataFrame</h3>
+
+<p><em>For this example, a countrywise population by year dataset is chosen. The dataset can be downloaded here, <a href="https://github.com/datasets/population/tree/master/data">population_dataset</a></em></p>
+
+<pre><code class="language-python">df = spark.read.format('csv').options(delimiter=',', header=True).load('/Path-to-file/population.csv')
+</code></pre>
+
+<p><br><em>Create DataFrame from RDD. The toDF() method can be used to convert the RDD to a dataframe</em></p>
+
+<pre><code class="language-python">rdd = sc.parallelize([(1,2),(3,4),(5,6)])
+rdf = rdd.toDF()
+</code></pre>
+
+<p><br><em>Creating a DataFrame from a list of values. Schema is inferred dynamically, if not specified</em></p>
+
+<pre><code class="language-python">tdf = spark.createDataFrame([('Alice',24),('David',43)],['name','age'])
+tdf.printSchema()
+</code></pre>
+
+<pre><code>root
+ |-- name: string (nullable = true)
+ |-- age: long (nullable = true)
+</code></pre>
+
+<p><br> <br></p>
+
+<h3 id="dataframe-schema">DataFrame Schema</h3>
+
+<p>*The <strong>printSchema()</strong> method can be used to display a description of the dataframe*</p>
+
+<pre><code class="language-python">df.printSchema()
+</code></pre>
+
+<pre><code>root
+ |-- Country Name: string (nullable = true)
+ |-- Country Code: string (nullable = true)
+ |-- Year: string (nullable = true)
+ |-- Value: string (nullable = true)
+</code></pre>
+
+<p><br>*Obtain the <strong>raw schema</strong> of a dataframe*</p>
+
+<pre><code class="language-python">df.schema
+</code></pre>
+
+<pre><code>StructType(List(StructField(Country Name,StringType,true),StructField(Country Code,StringType,true),StructField(Year,LongType,true),StructField(Value,LongType,true)))
+</code></pre>
+
+<p><br>*Generate the <strong>columns</strong> of the dataset. A list consisting of the columns is generated*</p>
+
+<pre><code class="language-python">df.columns
+</code></pre>
+
+<pre><code>['Country Name', 'Country Code', 'Year', 'Value']
+</code></pre>
+
+<p><br> <br></p>
+
+<h3 id="count-of-a-dataframe">Count of a DataFrame</h3>
+
+<pre><code class="language-python">df.count()
+</code></pre>
+
+<pre><code>14885
+</code></pre>
+
+<p><br> <br></p>
+
+<h3 id="display-dataframe-data">Display DataFrame Data</h3>
+
+<p>*Display 5 rows. <em>Truncate=False</em> can be enabled for displaying entire column data on your terminal*</p>
+
+<pre><code class="language-python">df.show(5, truncate=False)
+</code></pre>
+
+<pre><code>+------------+------------+----+---------+
+|Country Name|Country Code|Year|Value    |
++------------+------------+----+---------+
+|Arab World  |ARB         |1960|92490932 |
+|Arab World  |ARB         |1961|95044497 |
+|Arab World  |ARB         |1962|97682294 |
+|Arab World  |ARB         |1963|100411076|
+|Arab World  |ARB         |1964|103239902|
++------------+------------+----+---------+
+only showing top 5 rows
+</code></pre>
+
+<p><br> <br></p>
+
+<h3 id="remove-duplicate-rows-from-a-dataframe">Remove Duplicate rows from a DataFrame</h3>
+
+<pre><code class="language-python">df.dropDuplicates()
+</code></pre>
+
+<pre><code>DataFrame[Country Name: string, Country Code: string, Year: bigint, Value: bigint]
+</code></pre>
+
+<p><br> <br></p>
+
+<h3 id="distinct-column-values">Distinct Column Values</h3>
+
+<p><em>Select distinct country code from the dataset</em></p>
+
+<pre><code class="language-python">df.select('Country Code').distinct().show()
+</code></pre>
+
+<pre><code>+------------+
+|Country Code|
++------------+
+|         HTI|
+|         PSE|
+|         LTE|
+|         BRB|
+|         LVA|
+|         POL|
+|         ECS|
+|         TEA|
+|         JAM|
+|         ZMB|
+|         MIC|
+|         BRA|
+|         ARM|
+|         IDA|
+|         MOZ|
+|         CUB|
+|         JOR|
+|         OSS|
+|         ABW|
+|         FRA|
++------------+
+only showing top 20 rows
+</code></pre>
+
+<p><br> <br></p>
+
+<h3 id="filtering-data">Filtering Data</h3>
+
+<p><em>Display Population of India for the year 2015,2016</em><br />
+ <em>&amp; - and</em></p>
+
+<p><em>| - or</em></p>
+
+<p><strong>Note: Remember to wrap the conditions with braces when &lsquo;&amp;&rsquo; or &lsquo;|&rsquo; is used.</strong></p>
+
+<pre><code class="language-python">from pyspark.sql.functions import col
+df.filter((col('Country Name') == 'India') &amp; (col('Year').isin('2015','2016'))).show()
+</code></pre>
+
+<pre><code>+------------+------------+----+----------+
+|Country Name|Country Code|Year|     Value|
++------------+------------+----+----------+
+|       India|         IND|2015|1309053980|
+|       India|         IND|2016|1324171354|
++------------+------------+----+----------+
+</code></pre>
+
+<p><br> <br></p>
+
+<h3 id="sorting-ordering-data">Sorting/Ordering Data</h3>
+
+<p><em>Below example illustrates how the country names can be displayed in descending order</em></p>
+
+<pre><code class="language-python">df.select('Country Name').orderBy('Country Name', ascending=False).distinct().show(truncate=False)
+</code></pre>
+
+<pre><code>+------------------------+
+|Country Name            |
++------------------------+
+|Zimbabwe                |
+|Zambia                  |
+|Yemen, Rep.             |
+|World                   |
+|West Bank and Gaza      |
+|Virgin Islands (U.S.)   |
+|Vietnam                 |
+|Venezuela, RB           |
+|Vanuatu                 |
+|Uzbekistan              |
+|Uruguay                 |
+|Upper middle income     |
+|United States           |
+|United Kingdom          |
+|United Arab Emirates    |
+|Ukraine                 |
+|Uganda                  |
+|Tuvalu                  |
+|Turks and Caicos Islands|
+|Turkmenistan            |
++------------------------+
+only showing top 20 rows
+</code></pre>
+
+<p><br> <br></p>
+
+<h3 id="grouping-performing-aggregations">Grouping &amp; Performing Aggregations</h3>
+
+<ul>
+<li><em>Obtain the total count of distinct years present in the entire dataset</em></li>
+</ul>
+
+<pre><code class="language-python"># Count of Years
+df.select('Year').distinct().groupBy().count().show()
+</code></pre>
+
+<pre><code>+-----+
+|count|
++-----+
+|   57|
++-----+
+</code></pre>
+
+<p><br><br />
+* <strong><em>SUM</em></strong> <em>&ndash; Compute the total world population for the year 1990</em></p>
+
+<pre><code class="language-python">df.filter(col('Year') == '1990').agg({'Value':'sum'}).show(truncate=False)
+</code></pre>
+
+<pre><code>+---------------+
+|sum(Value)     |
++---------------+
+|5.4935613753E10|
++---------------+
+</code></pre>
+
+<p><br>
+* <strong><em>AVG</em></strong> <em>&ndash; Compute the average population in India for the year 2005</em></p>
+
+<pre><code class="language-python">df.filter((col('Year') == '2005') &amp; (col('Country Name') == 'India')).agg({'Value':'avg'}).show(truncate=False)
+</code></pre>
+
+<pre><code>+-------------+
+|avg(Value)   |
++-------------+
+|1.144118674E9|
++-------------+
+</code></pre>
+
+<p><br>
+* <strong><em>MIN</em></strong> <em>&ndash; Display the least population for the year 2010</em></p>
+
+<pre><code class="language-python">df.filter(df.Year == '2007').agg({'Value':'min'}).show()
+</code></pre>
+
+<pre><code>+----------+
+|min(Value)|
++----------+
+|     10075|
++----------+
+</code></pre>
+
+<p><br>
+* <strong><em>MAX</em></strong> <em>&ndash; Display country with the largest population for the year 2016</em></p>
+
+<pre><code class="language-python">df.filter(df.Value == df.filter(df.Year == '2016').agg({'Value':'max'}).collect()[0][0]).show()
+</code></pre>
+
+<pre><code>+------------+------------+----+----------+
+|Country Name|Country Code|Year|     Value|
++------------+------------+----+----------+
+|       World|         WLD|2016|7442135578|
++------------+------------+----+----------+
+</code></pre>
+
+<p><br> <br></p>
+
+<h3 id="join-dataframes">Join DataFrames</h3>
+
+<p><em>A dataframe can be joined with another using the .join method. join takes 3 arguments, join(other, on=None, how=None)</em> <br>
+* <em>other - dataframe to be joined with</em> <br>
+* <em>on - on condition of the join</em> <br>
+* <em>how - type of join. inner join is set by default if not specified</em> <br>
+<em>Other types of joins which can be specified are, inner, cross, outer, full, full_outer, left, left_outer, right, right_outer, left_semi, and left_anti</em></p>
+
+<p><em>Below is an example illustrating an inner join <br>
+Let&rsquo;s construct 2 dataframes, <br>
+One with only distinct values of country name and country code and the other with country code, value and year <br>
+Country code would be the join condition here</em></p>
+
+<pre><code class="language-python">df1 = df.select('Country Name', 'Country Code').distinct()
+df1.count()
+</code></pre>
+
+<pre><code>263
+</code></pre>
+
+<pre><code class="language-python">df2 = df.select(col('Country Code').alias('ctry_cd'), 'Value', 'Year').distinct()
+df2.count()
+</code></pre>
+
+<pre><code>14885
+</code></pre>
+
+<p><br>
+<em>Now let&rsquo;s join both the dataframes on country_code and display the data</em></p>
+
+<pre><code class="language-python">from pyspark.sql.functions import col
+df1.join(df2, col('Country Code') == col('ctry_cd')).show(5)
+</code></pre>
+
+<pre><code>+--------------------+------------+-------+----------+----+
+|        Country Name|Country Code|ctry_cd|     Value|Year|
++--------------------+------------+-------+----------+----+
+|East Asia &amp; Pacif...|         EAP|    EAP|1878255588|2004|
+|Europe &amp; Central ...|         ECA|    ECA| 396886165|2001|
+|           IDA blend|         IDB|    IDB| 135810058|1964|
+|           IDA blend|         IDB|    IDB| 403526930|2005|
+|            IDA only|         IDX|    IDX| 984961696|2013|
++--------------------+------------+-------+----------+----+
+only showing top 5 rows
+</code></pre>
+
+<p><br>
+<em>Country Code seems to be redundant here, so while displaying this can be removed using the drop method</em></p>
+
+<pre><code class="language-python">df1.join(df2, col('Country Code') == col('ctry_cd')).drop(col('ctry_cd')).show(5,False)
+</code></pre>
+
+<pre><code>+---------------------------------------------+------------+----------+----+
+|Country Name                                 |Country Code|Value     |Year|
++---------------------------------------------+------------+----------+----+
+|East Asia &amp; Pacific (excluding high income)  |EAP         |1878255588|2004|
+|Europe &amp; Central Asia (excluding high income)|ECA         |396886165 |2001|
+|IDA blend                                    |IDB         |135810058 |1964|
+|IDA blend                                    |IDB         |403526930 |2005|
+|IDA only                                     |IDX         |984961696 |2013|
++---------------------------------------------+------------+----------+----+
+only showing top 5 rows
+</code></pre>
+
+<p><br> <br></p>
+
+<h3 id="limit-data-from-a-dataframe">Limit data from a dataframe</h3>
+
+<pre><code class="language-python">df2 = df.limit(10)
+df2.count()
+</code></pre>
+
+<pre><code>10
+</code></pre>
+
+<p><br> <br></p>
+
+<h3 id="union-2-dataframes">Union 2 Dataframes</h3>
+
+<p><em>Below examples combines 2 dataframes holding the first and last ten rows respectively</em></p>
+
+<pre><code class="language-python"># Combine 2 Dataframes
+df1 = df.orderBy('Country Code').limit(10)
+df2 = df.orderBy('Country Code', ascending=False).limit(10)
+df1.union(df2).show()
+</code></pre>
+
+<pre><code>+------------+------------+----+-------+
+|Country Name|Country Code|Year|  Value|
++------------+------------+----+-------+
+|       Aruba|         ABW|1960|  54211|
+|       Aruba|         ABW|1969|  58726|
+|       Aruba|         ABW|1961|  55438|
+|       Aruba|         ABW|1962|  56225|
+|       Aruba|         ABW|1963|  56695|
+|       Aruba|         ABW|1964|  57032|
+|       Aruba|         ABW|1965|  57360|
+|       Aruba|         ABW|1966|  57715|
+|       Aruba|         ABW|1967|  58055|
+|       Aruba|         ABW|1968|  58386|
+|    Zimbabwe|         ZWE|1960|3747369|
+|    Zimbabwe|         ZWE|1969|5009514|
+|    Zimbabwe|         ZWE|1961|3870756|
+|    Zimbabwe|         ZWE|1962|3999419|
+|    Zimbabwe|         ZWE|1963|4132756|
+|    Zimbabwe|         ZWE|1964|4269863|
+|    Zimbabwe|         ZWE|1965|4410212|
+|    Zimbabwe|         ZWE|1966|4553433|
+|    Zimbabwe|         ZWE|1967|4700041|
+|    Zimbabwe|         ZWE|1968|4851431|
++------------+------------+----+-------+
+</code></pre>
+
+<p><br> <br></p>
+
+<h3 id="how-to-change-dataframe-columns">How to change Dataframe columns</h3>
+
+<ul>
+<li><em>Below method shows how a simple alias function can be used to rename a column</em></li>
+</ul>
+
+<pre><code class="language-python"># Rename Column
+# Method 1
+df.select(col('Country Name').alias('country'), col('Country Code').alias('code')).show(2)
+</code></pre>
+
+<pre><code>+----------+----+
+|   country|code|
++----------+----+
+|Arab World| ARB|
+|Arab World| ARB|
++----------+----+
+only showing top 2 rows
+</code></pre>
+
+<p><br>
+* <em>Another Method which can be used is withColumnRenamed method to display the column name according to your requirement.</em></p>
+
+<pre><code class="language-python"># Rename Column
+# Method 2
+df.select('Year').distinct().groupBy().count().withColumnRenamed('count', 'year_count').show()
+</code></pre>
+
+<pre><code>+----------+
+|year_count|
++----------+
+|        57|
++----------+
+</code></pre>
+
+<p><br>
+* ##### Handy Method to rename multiple columns using toDF</p>
+
+<pre><code class="language-python"># Rename Multiple Columns
+# Method 3
+new_col_names = ['country','code','yr','val']
+df.toDF(*new_col_names).columns
+</code></pre>
+
+<pre><code>['country', 'code', 'yr', 'val']
+</code></pre>
+
+<p><br> <br></p>
+
+<h3 id="datatype-casting">DataType Casting</h3>
+
+<p><em>A simple cast method can be used to explicitly cast a column from one datatype to another. Below example shows how to convert the value column from string to bigint.</em></p>
+
+<pre><code class="language-python">df.select(df['Value'].cast('bigint')).printSchema()
+</code></pre>
+
+<pre><code>root
+ |-- Value: long (nullable = true)
+</code></pre>
+
+<h5 id="wait-but-what-if-you-d-like-to-cast-mutiple-columns-at-a-shot">Wait! But what if you&rsquo;d like to cast mutiple columns at a shot?</h5>
+
+<p><em>There are several ways to achieve this. I would like to discuss to easy ways which isn&rsquo;t very tedious.
+One way is to use a list of column datatypes and the column names and iterate over the same to cast the columns in one loop.
+Another simpler way is to use Spark SQL to frame a SQL query to cast the columns.</em></p>
+
+<p><em>Below example depicts a concise way to cast multiple columns using a single for loop without having to repetitvely use the cast function in the code.</em></p>
+
+<pre><code class="language-python">from pyspark.sql.functions import col
+cols = df.columns #&gt; ['Country Name', 'Country Code', 'Year', 'Value']
+datatypes = ['string', 'string', 'bigint', 'bigint']
+for i in range(len(cols)):
+    df = df.withColumn(cols[i], col(cols[i]).cast(datatypes[i]))
+df = df.select(*cols)
+df.printSchema()
+</code></pre>
+
+<pre><code>root
+ |-- Country Name: string (nullable = true)
+ |-- Country Code: string (nullable = true)
+ |-- Year: long (nullable = true)
+ |-- Value: long (nullable = true)
+</code></pre>
+
+<p><br> <br></p>
+
+<h3 id="cache-a-dataframe">Cache a DataFrame</h3>
+
+<p><em>This would be useful when dataframe is being called multiple times. The dataframe would be cached in memory, hence the data retrieval latency would be lower</em></p>
+
+<pre><code class="language-python">df.persist()
+</code></pre>
+
+<pre><code>DataFrame[Country Name: string, Country Code: string, Year: string, Value: string]
+</code></pre>
+
+<p><br>
+ *A Dataframe can be verified if it&rsquo;s present in the cache or not using the <strong>storageLevel()</strong> method.*</p>
+
+<p><em>True condition indicates dataframe is present is already cached.</em></p>
+
+<pre><code class="language-python">df.storageLevel
+</code></pre>
+
+<pre><code>StorageLevel(True, True, False, False, 1)
+</code></pre>
+
+<p><br> <br></p>
+
+<h3 id="unpersist-dataframe">Unpersist Dataframe</h3>
+
+<pre><code class="language-python">df.unpersist()
+</code></pre>
+
+<pre><code>DataFrame[Country Name: string, Country Code: string, Year: string, Value: string]
+</code></pre>
+
+<p><br>
+<em>StorageLevel After uncaching Dataframe</em></p>
+
+<pre><code class="language-python">df.storageLevel
+</code></pre>
+
+<pre><code>StorageLevel(False, False, False, False, 1)
+</code></pre>
+
+<p><br> <br></p>
+
+<h3 id="replace-nulls">Replace Nulls</h3>
+
+<p><em>Replace Null Values with some user defined value</em></p>
+
+<pre><code class="language-python">df3 = df.fillna('-99')
+</code></pre>
+
+<p><br> <br></p>
+
+<h3 id="partition-data">Partition Data</h3>
+
+<p><em>repartition method can be used to partition the data according to the columns or a defined number.</em>
+ <em>The repartition algorithm performs a full data shuffle creating equally distributed chunks of data among the partitions. The resulting dataframe is hash partitioned.</em></p>
+
+<p><em>repartition can be done in 2 ways,</em>
+ * <em>Passing an int value to repartition method can help create partitions based on the integer argument</em>
+ * <em>Passing a column name, would create the partitions based on the distinct column values</em></p>
+
+<p><strong>Caution: Repartition performs a full shuffle on the data. Providing an incorrect input might result in a large file getting created or may sometimes result in out of memory error</strong></p>
+
+<p><em>In our example, we will partition the data according to country name &amp; compute the total number of partitions</em>
+<em>Here there are 263 country names in the dataset, but only 200 files would be created if this dataframe is saved. This is because repartition by default takes in the value present in spark.sql.shuffle.partitions if integer value is not explicitly provided</em></p>
+
+<pre><code class="language-python">df3 = df.repartition('Country Name')
+df3.rdd.getNumPartitions()
+</code></pre>
+
+<pre><code>200
+</code></pre>
+
+<p><br>
+<em>As shown below the value of the property by default is 200. This value can be changed using the conf.set method</em></p>
+
+<pre><code class="language-python">spark.conf.get(&quot;spark.sql.shuffle.partitions&quot;)
+</code></pre>
+
+<pre><code>'200'
+</code></pre>
+
+<pre><code class="language-python">spark.conf.set(&quot;spark.sql.shuffle.partitions&quot;, &quot;300&quot;)
+df3 = df.repartition('Country Name')
+df3.rdd.getNumPartitions()
+</code></pre>
+
+<pre><code>300
+</code></pre>
+
+<p><br>
+<em>Partition Data according to an integer value</em></p>
+
+<pre><code class="language-python">df4 = df.repartition(50)
+df4.rdd.getNumPartitions()
+</code></pre>
+
+<pre><code>50
+</code></pre>
+
+<p><br> <br></p>
+
+<h3 id="dataframe-write">DataFrame Write</h3>
+
+<p><em>A Dataframe can be saved in multiple formats such as parquet, ORC and even plain delimited text files.</em>
+<em>Below example illustrates how the dataframe can be saved as a pipe delimited csv file</em></p>
+
+<pre><code class="language-python">df.write.format('csv').option('delimiter','|').save('Path-to_file')
+</code></pre>
+
+<p>A Dataframe can be saved in multiple modes, such as,
+* append - appends to existing data in the path
+* overwrite - Overwrites existing data with the dataframe being saved
+* ignore - Does nothing if data exists
+* error (or) errorifexists - raises an exception if data is already present (Default)</p>
+
+<p><em>Below method illustrates how the above save can be performed with overwrite mode</em></p>
+
+<pre><code class="language-python">df.write.format('csv').option('delimiter','|').mode('overwrite').save('Path-to_file')
+</code></pre>
+
+<p><br> <br></p>
+
+<h3 id="create-temp-view">Create Temp View</h3>
+
+<p><em>The Dataframe can be saved as temporary view which is present as long as that spark session is active</em></p>
+
+<pre><code class="language-python"># Save Dataframe as Temp View
+df.createOrReplaceTempView('population')
+# Above view can be used to perform Spark SQL queries 
+</code></pre>
+
+<p><br> <br></p>
+
+<h3 id="spark-sql">Spark SQL</h3>
+
+<ul>
+<li><em>Display Data using Spark SQL</em></li>
+</ul>
+
+<pre><code class="language-python">spark.sql(&quot;select * from population limit 5&quot;).show()
+</code></pre>
+
+<pre><code>+------------+------------+----+---------+
+|Country Name|Country Code|Year|    Value|
++------------+------------+----+---------+
+|  Arab World|         ARB|1960| 92490932|
+|  Arab World|         ARB|1961| 95044497|
+|  Arab World|         ARB|1962| 97682294|
+|  Arab World|         ARB|1963|100411076|
+|  Arab World|         ARB|1964|103239902|
++------------+------------+----+---------+
+</code></pre>
+
+<p><br>
+* <em>Get Max Year from the dataset</em></p>
+
+<pre><code class="language-python">spark.sql(&quot;select max(year) as max_year from population&quot;).show()
+</code></pre>
+
+<pre><code>+--------+
+|max_year|
++--------+
+|    2016|
++--------+
+</code></pre>
+
+<p><br>
+* <em>Display population for Japan &amp; India for the years between 1990 to 1995</em></p>
+
+<pre><code class="language-python">spark.sql(&quot;&quot;&quot;select `Country Name`, year,  value as population from population where `Country Name` in ('India','Japan')
+          and cast(year as bigint) between 1990 and 1995&quot;&quot;&quot;).show()
+</code></pre>
+
+<pre><code>+------------+----+----------+
+|Country Name|year|population|
++------------+----+----------+
+|       India|1990| 870133480|
+|       India|1991| 888054875|
+|       India|1992| 906021106|
+|       India|1993| 924057817|
+|       India|1994| 942204249|
+|       India|1995| 960482795|
+|       Japan|1990| 123537000|
+|       Japan|1991| 123921000|
+|       Japan|1992| 124229000|
+|       Japan|1993| 124536000|
+|       Japan|1994| 124961000|
+|       Japan|1995| 125439000|
++------------+----+----------+
+</code></pre>
+
+<p>By now, you should&rsquo;ve been familiar on performing basic operations on a Spark Dataframe. I strongly recommend you to use a random dataset and practice the above operations to get a hold of it.</p>
+
+<p>Feedback and comments are welcome and the same can be posted on the comment section below. Hope this post was helpful. Cheers!</p>
+
+                        </div>
+                        
+                        
+                        <div id="comments">
+                            <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "devcows" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+                        </div>
+                        
+
+                    </div>
+                    
+
+                    
+
+                    
+
+                    <div class="col-md-3">
+
+                        
+
+                        
+
+<div class="panel panel-default sidebar-menu">
+
+    <div class="panel-heading">
+      <h3 class="panel-title">Search</h3>
+    </div>
+
+    <div class="panel-body">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" role="search">
+            <div class="input-group">
+                <input type="search" name="q" class="form-control" placeholder="Search">
+                <input type="hidden" name="sitesearch" value="https://noufel1393.github.io">
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-template-main"><i class="fa fa-search"></i></button>
+                </span>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+
+    <div class="panel-heading">
+      <h3 class="panel-title">Categories</h3>
+    </div>
+
+    <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked">
+            
+            <li><a href="https://noufel1393.github.iocategories/programming">programming (2)</a>
+            </li>
+            
+            <li><a href="https://noufel1393.github.iocategories/pseudo">pseudo (1)</a>
+            </li>
+            
+            <li><a href="https://noufel1393.github.iocategories/python">python (1)</a>
+            </li>
+            
+            <li><a href="https://noufel1393.github.iocategories/r">r (1)</a>
+            </li>
+            
+            <li><a href="https://noufel1393.github.iocategories/spark">spark (3)</a>
+            </li>
+            
+            <li><a href="https://noufel1393.github.iocategories/starting">starting (1)</a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="panel sidebar-menu">
+    <div class="panel-heading">
+      <h3 class="panel-title">Tags</h3>
+    </div>
+
+    <div class="panel-body">
+        <ul class="tag-cloud">
+            
+            <li><a href="https://noufel1393.github.iotags/coalesce"><i class="fa fa-tags"></i> coalesce</a>
+            </li>
+            
+            <li><a href="https://noufel1393.github.iotags/dataframe"><i class="fa fa-tags"></i> dataframe</a>
+            </li>
+            
+            <li><a href="https://noufel1393.github.iotags/go"><i class="fa fa-tags"></i> go</a>
+            </li>
+            
+            <li><a href="https://noufel1393.github.iotags/golang"><i class="fa fa-tags"></i> golang</a>
+            </li>
+            
+            <li><a href="https://noufel1393.github.iotags/hugo"><i class="fa fa-tags"></i> hugo</a>
+            </li>
+            
+            <li><a href="https://noufel1393.github.iotags/multithreading"><i class="fa fa-tags"></i> multithreading</a>
+            </li>
+            
+            <li><a href="https://noufel1393.github.iotags/plot"><i class="fa fa-tags"></i> plot</a>
+            </li>
+            
+            <li><a href="https://noufel1393.github.iotags/programming"><i class="fa fa-tags"></i> programming</a>
+            </li>
+            
+            <li><a href="https://noufel1393.github.iotags/pyspark"><i class="fa fa-tags"></i> pyspark</a>
+            </li>
+            
+            <li><a href="https://noufel1393.github.iotags/python"><i class="fa fa-tags"></i> python</a>
+            </li>
+            
+            <li><a href="https://noufel1393.github.iotags/r-markdown"><i class="fa fa-tags"></i> r-markdown</a>
+            </li>
+            
+            <li><a href="https://noufel1393.github.iotags/rdd"><i class="fa fa-tags"></i> rdd</a>
+            </li>
+            
+            <li><a href="https://noufel1393.github.iotags/regression"><i class="fa fa-tags"></i> regression</a>
+            </li>
+            
+            <li><a href="https://noufel1393.github.iotags/repartition"><i class="fa fa-tags"></i> repartition</a>
+            </li>
+            
+            <li><a href="https://noufel1393.github.iotags/spark"><i class="fa fa-tags"></i> spark</a>
+            </li>
+            
+            <li><a href="https://noufel1393.github.iotags/theme"><i class="fa fa-tags"></i> theme</a>
+            </li>
+            
+            <li><a href="https://noufel1393.github.iotags/threading"><i class="fa fa-tags"></i> threading</a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+
+
+                        
+
+                    </div>
+                    
+
+                    
+
+                </div>
+                
+
+            </div>
+            
+        </div>
+        
+
+        <footer id="footer">
+    <div class="container">
+
+        
+        <div class="col-md-4 col-sm-6">
+            <h4>About us</h4>
+
+            Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+        <div class="col-md-4 col-sm-6">
+
+             
+            <h4>Recent posts</h4>
+
+            <div class="blog-entries">
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="https://noufel1393.github.io/blog/multithreading_in_python/">
+                          
+                            <img src="https://noufel1393.github.ioimg/banners/banner-3.jpg" class="img-responsive" alt="Multithreading in Python">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="https://noufel1393.github.io/blog/multithreading_in_python/">Multithreading in Python</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="https://noufel1393.github.io/blog/pyspark_dataframe_operations/">
+                          
+                            <img src="https://noufel1393.github.ioimg/banners/banner-3.jpg" class="img-responsive" alt="Pyspark DataFrame Operations - Basics">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="https://noufel1393.github.io/blog/pyspark_dataframe_operations/">Pyspark DataFrame Operations - Basics</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="https://noufel1393.github.io/blog/semi_structured_data_spark/">
+                          
+                            <img src="https://noufel1393.github.ioimg/banners/banner-3.jpg" class="img-responsive" alt="Semi-Structured Data in Spark (pyspark) - JSON">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="https://noufel1393.github.io/blog/semi_structured_data_spark/">Semi-Structured Data in Spark (pyspark) - JSON</a></h5>
+                    </div>
+                </div>
+                
+            </div>
+
+            <hr class="hidden-md hidden-lg">
+             
+
+        </div>
+        
+
+        
+        <div class="col-md-4 col-sm-6">
+
+          <h4>Contact</h4>
+
+            <strong>Universal Ltd.</strong>
+        <br>13/25 New Avenue
+        <br>Newtown upon River
+        <br>45Y 73J
+        <br>England
+        <br>
+        <strong>Great Britain</strong>
+      </p>
+      
+
+
+            <a href="/contact" class="btn btn-small btn-template-main">Go to contact page</a>
+
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+    </div>
+    
+</footer>
+
+
+
+
+
+
+
+<div id="copyright">
+    <div class="container">
+        <div class="col-md-12">
+            
+            <p class="pull-left">Copyright (c) 2015 - 2016, DataNoon; all rights reserved.</p>
+            
+            <p class="pull-right">
+              Template by <a href="http://bootstrapious.com/free-templates">Bootstrapious</a>.
+              
+
+              Ported to Hugo by <a href="https://github.com/devcows/hugo-universal-theme">DevCows</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+    </div>
+    
+
+    
+<script src="//code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0/jquery.counterup.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-parallax/1.1.3/jquery-parallax.js"></script>
+
+<script src="//maps.googleapis.com/maps/api/js?v=3.exp"></script>
+
+<script src="https://noufel1393.github.iojs/hpneo.gmaps.js"></script>
+<script src="https://noufel1393.github.iojs/gmaps.init.js"></script>
+<script src="https://noufel1393.github.iojs/front.js"></script>
+
+
+<script src="https://noufel1393.github.iojs/owl.carousel.min.js"></script>
+
+
+  </body>
+</html>
